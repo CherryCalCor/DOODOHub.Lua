@@ -3,6 +3,11 @@
 
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
+local TeleportService =
+game:GetService("TeleportService")
+
+local HttpService =
+game:GetService("HttpService")
 
 local player = Players.LocalPlayer
 
@@ -852,6 +857,405 @@ ToolButton.MouseButton1Click:Connect(function()
 
 	tool.Parent =
 	player.Backpack
+
+end)
+
+local ServerButton =
+Instance.new("TextButton")
+
+ServerButton.Size =
+UDim2.new(0,70,0,20)
+
+ServerButton.Position =
+UDim2.new(0,25,0,90)
+
+ServerButton.BackgroundTransparency =
+1
+
+ServerButton.Text =
+"server"
+
+ServerButton.Font =
+Enum.Font.GothamBold
+
+ServerButton.TextSize =
+14
+
+ServerButton.TextColor3 =
+Color3.fromRGB(220,220,220)
+
+ServerButton.Parent =
+MainFrame
+
+local ServerPage =
+Instance.new("Frame")
+
+ServerPage.Parent =
+MainFrame
+
+ServerPage.Size =
+UDim2.new(0,280,0,180)
+
+ServerPage.Position =
+UDim2.new(0,115,0,45)
+
+ServerPage.BackgroundColor3 =
+Color3.fromRGB(0,140,255)
+
+ServerPage.BackgroundTransparency =
+0.88
+
+ServerPage.Visible =
+false
+
+Instance.new(
+"UICorner",
+ServerPage
+).CornerRadius =
+UDim.new(0,10)
+
+local sStroke =
+Instance.new("UIStroke")
+
+sStroke.Parent =
+ServerPage
+
+sStroke.Color =
+Color3.fromRGB(0,140,255)
+
+sStroke.Transparency =
+0.3
+
+local Rejoin =
+Instance.new("TextButton")
+
+Rejoin.Parent =
+ServerPage
+
+Rejoin.Size =
+UDim2.new(0,120,0,30)
+
+Rejoin.Position =
+UDim2.new(0,10,0,15)
+
+Rejoin.Text =
+"Rejoin"
+
+Rejoin.MouseButton1Click:Connect(function()
+
+TeleportService:
+Teleport(
+game.PlaceId,
+player
+)
+
+end)
+
+local Hop =
+Rejoin:Clone()
+
+Hop.Parent =
+ServerPage
+
+Hop.Position =
+UDim2.new(0,10,0,55)
+
+Hop.Text =
+"Server Hop"
+
+
+Hop.MouseButton1Click:Connect(function()
+
+local servers =
+game.HttpService:
+JSONDecode(
+
+game:HttpGet(
+"https://games.roblox.com/v1/games/"
+..
+game.PlaceId
+..
+"/servers/Public?limit=100"
+)
+
+)
+
+local possible={}
+
+for _,v in pairs(
+servers.data
+) do
+
+if v.playing <
+v.maxPlayers then
+
+table.insert(
+possible,
+v.id
+)
+
+end
+
+end
+
+if #possible>0 then
+
+TeleportService:
+TeleportToPlaceInstance(
+
+game.PlaceId,
+
+possible[
+math.random(
+1,
+#possible
+)
+],
+
+player
+
+)
+
+end
+
+end)
+
+local List =
+Rejoin:Clone()
+
+List.Parent =
+ServerPage
+
+List.Position =
+UDim2.new(0,10,0,95)
+
+List.Text =
+"Server List"
+
+local ServerGui =
+Instance.new("ScreenGui")
+
+ServerGui.Parent =
+player.PlayerGui
+
+
+local TopServer =
+Instance.new("Frame")
+
+TopServer.Parent =
+ServerGui
+
+TopServer.Size =
+UDim2.new(0,180,0,40)
+
+TopServer.Position =
+UDim2.new(.5,-90,0,15)
+
+TopServer.BackgroundColor3 =
+Color3.fromRGB(20,20,20)
+
+Instance.new(
+"UICorner",
+TopServer
+).CornerRadius =
+UDim.new(0,10)
+
+
+local st =
+Instance.new("UIStroke")
+
+st.Parent =
+TopServer
+
+st.Color =
+Color3.fromRGB(
+0,140,255
+)
+
+local Dot =
+Instance.new("Frame")
+
+Dot.Parent =
+TopServer
+
+Dot.Size =
+UDim2.new(0,8,0,8)
+
+Dot.Position =
+UDim2.new(0,12,.5,-4)
+
+Dot.BackgroundColor3 =
+Color3.fromRGB(
+0,140,255
+)
+
+Instance.new(
+"UICorner",
+Dot
+).CornerRadius =
+UDim.new(1,0)
+
+local Label =
+Instance.new("TextLabel")
+
+Label.Parent =
+TopServer
+
+Label.Text =
+"Servers"
+
+Label.Size =
+UDim2.new(1,0,1,0)
+
+Label.BackgroundTransparency =
+1
+
+Label.Font =
+Enum.Font.GothamBold
+
+Label.TextColor3 =
+Color3.new(1,1,1)
+
+local Min =
+Instance.new("TextButton")
+
+Min.Parent =
+TopServer
+
+Min.Text =
+"_"
+
+Min.Position =
+UDim2.new(
+1,-45,
+0,0
+)
+
+Min.Size =
+UDim2.new(
+0,20,
+1,0
+)
+
+local Sort =
+Instance.new("TextButton")
+
+Sort.Parent =
+TopServer
+
+Sort.Text =
+"⇅"
+
+Sort.Position =
+UDim2.new(
+1,-25,
+0,0
+)
+
+Sort.Size =
+UDim2.new(
+0,20,
+1,0
+)
+
+local ServerList =
+Instance.new(
+"ScrollingFrame"
+)
+
+ServerList.Parent =
+ServerGui
+
+ServerList.Size =
+UDim2.new(
+0,400,
+0,300
+)
+
+ServerList.Position =
+UDim2.new(
+.5,-200,
+0,65
+)
+
+ServerList.Visible =
+false
+
+List.MouseButton1Click:Connect(function()
+
+ServerList.Visible =
+not ServerList.Visible
+
+end)
+
+local response =
+HttpService:
+JSONDecode(
+
+game:HttpGet(
+
+"https://games.roblox.com/v1/games/"
+..
+game.PlaceId
+..
+"/servers/Public?limit=200"
+
+)
+
+)
+
+for _,server in pairs(
+response.data
+) do
+
+local join =
+Instance.new(
+"TextButton"
+)
+
+join.Parent =
+ServerList
+
+join.Text =
+server.playing
+..
+"/"
+..
+server.maxPlayers
+
+join.MouseButton1Click:
+Connect(function()
+
+TeleportService:
+TeleportToPlaceInstance(
+
+game.PlaceId,
+
+server.id,
+
+player
+
+)
+
+end)
+
+end
+
+local serverOpen=false
+
+ServerButton.MouseButton1Click:
+Connect(function()
+
+serverOpen =
+not serverOpen
+
+ServerPage.Visible =
+serverOpen
+
+TPPage.Visible =
+false
+InfoPage.Visible =
+false
 
 end)
 
