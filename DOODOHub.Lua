@@ -309,14 +309,9 @@ end)
 -- TELEPORT BUTTON
 --========================
 
-local TeleportButton =
-Instance.new("TextButton")
-
-TeleportButton.Size =
-UDim2.new(0,70,0,24)
-
-TeleportButton.Position =
-UDim2.new(0,25,0,65)
+local TeleportButton = Instance.new("TextButton")
+TeleportButton.Size = UDim2.new(0,70,0,24)
+TeleportButton.Position = UDim2.new(0,25,0,65)
 
 TeleportButton.BackgroundColor3 =
 Color3.fromRGB(0,140,255)
@@ -328,7 +323,7 @@ TeleportButton.Text =
 "Teleport"
 
 TeleportButton.Font =
-Enum.Font.GothamBold -- как DOODO HUB
+Enum.Font.GothamBold
 
 TeleportButton.TextSize =
 14
@@ -336,44 +331,66 @@ TeleportButton.TextSize =
 TeleportButton.TextColor3 =
 Color3.new(1,1,1)
 
-TeleportButton.BorderSizePixel =
-0
-
 TeleportButton.Parent =
 MainFrame
 
-
-local TPCorner =
-Instance.new("UICorner")
-
-TPCorner.CornerRadius =
+Instance.new(
+"UICorner",
+TeleportButton
+).CornerRadius =
 UDim.new(0,8)
 
-TPCorner.Parent =
+Instance.new(
+"UIStroke",
 TeleportButton
-
-
-local TPStroke =
-Instance.new("UIStroke")
-
-TPStroke.Color =
+).Color =
 Color3.fromRGB(0,140,255)
 
-TPStroke.Transparency =
-0.4
-
-TPStroke.Parent =
-TeleportButton
 
 
+-- PAGE
 
--- PLAYER LIST
+local TPPage =
+Instance.new("Frame")
+
+TPPage.Size =
+UDim2.new(0,280,0,180)
+
+TPPage.Position =
+UDim2.new(0,115,0,45)
+
+TPPage.Visible =
+false
+
+TPPage.BackgroundColor3 =
+Color3.fromRGB(0,140,255)
+
+TPPage.BackgroundTransparency =
+0.88
+
+TPPage.Parent =
+MainFrame
+
+Instance.new(
+"UICorner",
+TPPage
+).CornerRadius =
+UDim.new(0,10)
+
+
+
+-- LIST
 
 local PlayerList =
-Instance.new("ScrollingFrame")
+Instance.new(
+"ScrollingFrame"
+)
+
+PlayerList.Parent =
+TPPage
 
 PlayerList.Size =
-UDim2.new(0,115,1,-10)
+UDim2.new(0,120,1,-10)
 
 PlayerList.Position =
 UDim2.new(0,5,0,5)
@@ -381,58 +398,67 @@ UDim2.new(0,5,0,5)
 PlayerList.BackgroundTransparency =
 1
 
-PlayerList.BorderSizePixel =
-0
-
 PlayerList.ScrollBarThickness =
 4
-
-PlayerList.CanvasSize =
-UDim2.new(0,0,0,0)
 
 PlayerList.AutomaticCanvasSize =
 Enum.AutomaticSize.Y
 
-PlayerList.Parent =
-TPPage
+PlayerList.CanvasSize =
+UDim2.new()
+
+PlayerList.BorderSizePixel =
+0
+
 
 
 local layout =
-Instance.new("UIListLayout")
-
-layout.Padding =
-UDim.new(0,4)
+Instance.new(
+"UIListLayout"
+)
 
 layout.Parent =
 PlayerList
 
+layout.Padding =
+UDim.new(0,4)
 
--- PLAYER INFO RIGHT
+
+
+-- RIGHT INFO
 
 local SelectedAvatar =
-Instance.new("ImageLabel")
-
-SelectedAvatar.Size =
-UDim2.new(0,60,0,60)
-
-SelectedAvatar.Position =
-UDim2.new(0,150,0,20)
-
-SelectedAvatar.BackgroundTransparency =
-1
+Instance.new(
+"ImageLabel"
+)
 
 SelectedAvatar.Parent =
 TPPage
 
+SelectedAvatar.Size =
+UDim2.new(0,70,0,70)
+
+SelectedAvatar.Position =
+UDim2.new(0,165,0,15)
+
+SelectedAvatar.BackgroundTransparency =
+1
+
+
 
 local SelectedName =
-Instance.new("TextLabel")
+Instance.new(
+"TextLabel"
+)
 
-SelectedName.Size =
-UDim2.new(0,100,0,20)
+SelectedName.Parent =
+TPPage
 
 SelectedName.Position =
-UDim2.new(0,130,0,90)
+UDim2.new(0,135,0,95)
+
+SelectedName.Size =
+UDim2.new(0,120,0,20)
 
 SelectedName.BackgroundTransparency =
 1
@@ -443,18 +469,21 @@ Enum.Font.GothamBold
 SelectedName.TextColor3 =
 Color3.new(1,1,1)
 
-SelectedName.Parent =
-TPPage
 
 
 local TPButton =
-Instance.new("TextButton")
+Instance.new(
+"TextButton"
+)
+
+TPButton.Parent =
+TPPage
 
 TPButton.Size =
-UDim2.new(0,90,0,30)
+UDim2.new(0,100,0,30)
 
 TPButton.Position =
-UDim2.new(0,135,0,120)
+UDim2.new(0,145,0,125)
 
 TPButton.Text =
 "Teleport"
@@ -465,121 +494,122 @@ Enum.Font.GothamBold
 TPButton.BackgroundColor3 =
 Color3.fromRGB(0,140,255)
 
-TPButton.Parent =
-TPPage
+TPButton.BackgroundTransparency =
+0.8
+
+TPButton.TextColor3 =
+Color3.new(1,1,1)
+
+Instance.new(
+"UICorner",
+TPButton
+).CornerRadius =
+UDim.new(0,8)
 
 
-local selectedPlayer =
-nil
+
+local selectedPlayer
 
 
-for _,plr in pairs(
-Players:GetPlayers()
-) do
 
-	local btn =
-	Instance.new("TextButton")
+local function refreshPlayers()
 
-	btn.Size =
-	UDim2.new(1,-5,0,28)
+	PlayerList:ClearAllChildren()
 
-	btn.BackgroundColor3 =
-	Color3.fromRGB(0,140,255)
-
-	btn.BackgroundTransparency =
-	0.85
-
-	btn.BorderSizePixel =
-	0
-
-	btn.Text =
-	plr.Name
-
-	btn.TextColor3 =
-	Color3.new(1,1,1)
-
-	btn.Font =
-	Enum.Font.GothamBold
-
-	btn.TextSize =
-	13
-
-	btn.Parent =
+	layout.Parent =
 	PlayerList
 
 
-	local corner =
-	Instance.new("UICorner")
+	for _,plr in ipairs(
+	Players:GetPlayers()
+	) do
 
-	corner.CornerRadius =
-	UDim.new(0,7)
-
-	corner.Parent =
-	btn
-
-
-	local stroke =
-	Instance.new("UIStroke")
-
-	stroke.Color =
-	Color3.fromRGB(0,140,255)
-
-	stroke.Transparency =
-	0.4
-
-	stroke.Parent =
-	btn
-
-
-	btn.MouseButton1Click:Connect(function()
-
-		selectedPlayer =
-		plr
-
-		SelectedName.Text =
-		plr.Name
-
-
-		local img =
-		Players:GetUserThumbnailAsync(
-			plr.UserId,
-			Enum.ThumbnailType.HeadShot,
-			Enum.ThumbnailSize.Size100x100
+		local btn =
+		Instance.new(
+		"TextButton"
 		)
 
-		SelectedAvatar.Image =
-		img
+		btn.Parent =
+		PlayerList
 
-	end)
+		btn.Size =
+		UDim2.new(
+		1,-5,
+		0,28
+		)
+
+		btn.Text =
+		plr.Name
+
+		btn.Font =
+		Enum.Font.GothamBold
+
+		btn.TextSize =
+		13
+
+		btn.TextColor3 =
+		Color3.new(1,1,1)
+
+		btn.BackgroundColor3 =
+		Color3.fromRGB(
+		0,140,255
+		)
+
+		btn.BackgroundTransparency =
+		0.85
+
+		btn.BorderSizePixel =
+		0
+
+		Instance.new(
+		"UICorner",
+		btn
+		).CornerRadius =
+		UDim.new(0,7)
+
+
+		btn.MouseButton1Click:Connect(function()
+
+			selectedPlayer =
+			plr
+
+			SelectedName.Text =
+			plr.Name
+
+
+			local img =
+			Players:
+			GetUserThumbnailAsync(
+
+			plr.UserId,
+
+			Enum.ThumbnailType.HeadShot,
+
+			Enum.ThumbnailSize.Size100x100
+			)
+
+			SelectedAvatar.Image =
+			img
+
+		end)
+
+	end
 
 end
 
 
-	btn.MouseButton1Click:Connect(function()
+refreshPlayers()
 
-		selectedPlayer =
-		plr
+Players.PlayerAdded:
+Connect(refreshPlayers)
 
-		SelectedName.Text =
-		plr.Name
-
-
-		local img =
-		Players:GetUserThumbnailAsync(
-			plr.UserId,
-			Enum.ThumbnailType.HeadShot,
-			Enum.ThumbnailSize.Size100x100
-		)
-
-		SelectedAvatar.Image =
-		img
-
-	end)
-
-end
+Players.PlayerRemoving:
+Connect(refreshPlayers)
 
 
-TPButton.MouseButton1Click:Connect(function()
+
+TPButton.MouseButton1Click:
+Connect(function()
 
 	if selectedPlayer
 	and selectedPlayer.Character
@@ -603,7 +633,9 @@ end)
 local tpOpen =
 false
 
-TeleportButton.MouseButton1Click:Connect(function()
+TeleportButton.
+MouseButton1Click:
+Connect(function()
 
 	tpOpen =
 	not tpOpen
