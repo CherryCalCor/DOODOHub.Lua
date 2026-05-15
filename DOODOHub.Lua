@@ -485,13 +485,16 @@ Color3.fromRGB(
 )
 
 TPButton.BackgroundTransparency =
-0.1
+0
 
 TPButton.TextColor3 =
 Color3.new(1,1,1)
 
 TPButton.BorderSizePixel =
 0
+
+TPButton.AutoButtonColor =
+false
 
 local tpStroke =
 Instance.new("UIStroke")
@@ -574,6 +577,8 @@ btn.BackgroundTransparency =
 btn.BorderSizePixel =
 0
 
+btn.AutoButtonColor =
+false
 
 -- скругление
 local corner =
