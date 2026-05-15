@@ -1280,92 +1280,84 @@ TopServer.MouseButton1Click:Connect(function()
 end)
 
 local response =
-HttpService:
-JSONDecode(
-
-game:HttpGet(
-
-"https://games.roblox.com/v1/games/"
-..
-game.PlaceId
-..
-"/servers/Public?limit=200"
-
+HttpService:JSONDecode(
+	game:HttpGet(
+	"https://games.roblox.com/v1/games/"
+	..
+	game.PlaceId
+	..
+	"/servers/Public?limit=200"
+	)
 )
 
-)
+for _,server in pairs(response.data) do
 
-local join =
-Instance.new("TextButton")
+	local join =
+	Instance.new("TextButton")
 
-join.Parent =
-ServerList
+	join.Parent =
+	ServerList
 
-join.Size =
-UDim2.new(
-1,-10,
-0,35
-)
+	join.Size =
+	UDim2.new(
+		1,-10,
+		0,35
+	)
 
-join.Text =
-"Players: "
-..
-server.playing
-..
-"/"
-..
-server.maxPlayers
+	join.Text =
+	"Players: "
+	..
+	server.playing
+	..
+	"/"
+	..
+	server.maxPlayers
 
-join.Font =
-Enum.Font.GothamBold
+	join.Font =
+	Enum.Font.GothamBold
 
-join.TextColor3 =
-Color3.new(1,1,1)
+	join.TextColor3 =
+	Color3.new(1,1,1)
 
-join.BackgroundColor3 =
-Color3.fromRGB(20,20,20)
+	join.BackgroundColor3 =
+	Color3.fromRGB(20,20,20)
 
-join.BorderSizePixel =
-0
+	join.BorderSizePixel =
+	0
 
+	Instance.new(
+	"UICorner",
+	join
+	).CornerRadius =
+	UDim.new(0,8)
 
-Instance.new(
-"UICorner",
-join
-).CornerRadius =
-UDim.new(0,8)
+	local stroke =
+	Instance.new("UIStroke")
 
+	stroke.Parent =
+	join
 
-local stroke =
-Instance.new("UIStroke")
+	stroke.Color =
+	Color3.fromRGB(
+	0,140,255
+	)
 
-stroke.Parent =
-join
-
-stroke.Color =
-Color3.fromRGB(
-0,140,255
-)
-
-stroke.Transparency =
-0.3
+	stroke.Transparency =
+	0.3
 
 
-join.MouseButton1Click:
-Connect(function()
+	join.MouseButton1Click:Connect(function()
 
-TeleportService:
-TeleportToPlaceInstance(
+		TeleportService:
+		TeleportToPlaceInstance(
 
-game.PlaceId,
+			game.PlaceId,
+			server.id,
+			player
 
-server.id,
+		)
 
-player
-
-)
-
-end)
+	end)
 
 end
 
