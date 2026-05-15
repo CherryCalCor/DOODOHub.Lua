@@ -309,18 +309,20 @@ end)
 -- TELEPORT BUTTON
 --========================
 
-local TeleportButton = Instance.new("TextButton")
-TeleportButton.Size = UDim2.new(0,70,0,24)
-TeleportButton.Position = UDim2.new(0,25,0,65)
+local TeleportButton =
+Instance.new("TextButton")
 
-TeleportButton.BackgroundColor3 =
-Color3.fromRGB(0,140,255)
+TeleportButton.Size =
+UDim2.new(0,70,0,20)
+
+TeleportButton.Position =
+UDim2.new(0,25,0,65)
 
 TeleportButton.BackgroundTransparency =
-0.85
+1
 
 TeleportButton.Text =
-"Teleport"
+"teleport"
 
 TeleportButton.Font =
 Enum.Font.GothamBold
@@ -329,22 +331,15 @@ TeleportButton.TextSize =
 14
 
 TeleportButton.TextColor3 =
-Color3.new(1,1,1)
+Color3.fromRGB(
+220,220,220
+)
 
 TeleportButton.Parent =
 MainFrame
 
-Instance.new(
-"UICorner",
-TeleportButton
-).CornerRadius =
-UDim.new(0,8)
-
-Instance.new(
-"UIStroke",
-TeleportButton
-).Color =
-Color3.fromRGB(0,140,255)
+TeleportButton.ZIndex =
+4
 
 
 
@@ -370,6 +365,8 @@ TPPage.BackgroundTransparency =
 
 TPPage.Parent =
 MainFrame
+
+TPPage.ZIndex = 4
 
 Instance.new(
 "UICorner",
@@ -500,6 +497,40 @@ TPButton.BackgroundTransparency =
 TPButton.TextColor3 =
 Color3.new(1,1,1)
 
+TPButton.BackgroundTransparency =
+0.8
+
+TPButton.BorderSizePixel =
+0
+
+local tpCorner =
+Instance.new(
+"UICorner"
+)
+
+tpCorner.CornerRadius =
+UDim.new(0,8)
+
+tpCorner.Parent =
+TPButton
+
+
+local tpStroke =
+Instance.new(
+"UIStroke"
+)
+
+tpStroke.Color =
+Color3.fromRGB(
+0,140,255
+)
+
+tpStroke.Transparency =
+0.4
+
+tpStroke.Parent =
+TPButton
+
 Instance.new(
 "UICorner",
 TPButton
@@ -560,6 +591,17 @@ local function refreshPlayers()
 
 		btn.BorderSizePixel =
 		0
+
+local corner =
+Instance.new(
+"UICorner"
+)
+
+corner.CornerRadius =
+UDim.new(0,7)
+
+corner.Parent =
+btn
 
 		Instance.new(
 		"UICorner",
@@ -633,9 +675,7 @@ end)
 local tpOpen =
 false
 
-TeleportButton.
-MouseButton1Click:
-Connect(function()
+TeleportButton.MouseButton1Click:Connect(function()
 
 	tpOpen =
 	not tpOpen
