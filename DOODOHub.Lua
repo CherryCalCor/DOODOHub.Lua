@@ -490,6 +490,8 @@ TPButton.BackgroundTransparency =
 TPButton.TextColor3 =
 Color3.new(1,1,1)
 
+TPButton.TextStrokeTransparency = 1 -- убрать обводку текста
+
 TPButton.BorderSizePixel =
 0
 
@@ -565,6 +567,8 @@ btn.TextSize =
 
 btn.TextColor3 =
 Color3.new(1,1,1) -- белый текст
+
+btn.TextStrokeTransparency = 1 -- убрать обводку текста
 
 btn.BackgroundColor3 =
 Color3.fromRGB(
