@@ -447,7 +447,7 @@ UDim2.new(
 StatusBox.Position =
 UDim2.new(
 0,
-10,
+18, -- вправо
 0,
 0
 )
