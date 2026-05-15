@@ -137,23 +137,72 @@ InfoButton.Parent = MainFrame
 InfoButton.ZIndex = 4
 
 
+-- INFO PAGE (внутри раздела info)
+
 local InfoPage = Instance.new("Frame")
 InfoPage.Size = UDim2.new(0,280,0,180)
 InfoPage.Position = UDim2.new(0,115,0,45)
-InfoPage.BackgroundTransparency = 1
-InfoPage.Visible = false
-InfoPage.Parent = MainFrame
+
+InfoPage.BackgroundColor3 =
+Color3.fromRGB(0,140,255) -- цвет как обводка
+
+InfoPage.BackgroundTransparency =
+0.88 -- прозрачность
+
+InfoPage.Visible =
+false
+
+InfoPage.Parent =
+MainFrame
 
 
-local InfoTitle = Instance.new("TextLabel")
-InfoTitle.Size = UDim2.new(1,0,0,30)
-InfoTitle.BackgroundTransparency = 1
-InfoTitle.Text = "INFO"
-InfoTitle.Font = Enum.Font.GothamBold
-InfoTitle.TextSize = 18
-InfoTitle.TextColor3 = Color3.new(1,1,1)
-InfoTitle.TextXAlignment =
-Enum.TextXAlignment.Left
+local InfoCorner =
+Instance.new("UICorner")
+
+InfoCorner.CornerRadius =
+UDim.new(0,10)
+
+InfoCorner.Parent =
+InfoPage
+
+
+local InfoStroke =
+Instance.new("UIStroke")
+
+InfoStroke.Color =
+Color3.fromRGB(0,140,255)
+
+InfoStroke.Thickness =
+1
+
+InfoStroke.Transparency =
+0.3
+
+InfoStroke.Parent =
+InfoPage
+
+
+
+local InfoTitle =
+Instance.new("TextLabel")
+
+InfoTitle.Size =
+UDim2.new(1,0,0,30)
+
+InfoTitle.BackgroundTransparency =
+1
+
+InfoTitle.Text =
+"INFO"
+
+InfoTitle.Font =
+Enum.Font.GothamBold -- как DOODO HUB
+
+InfoTitle.TextSize =
+18
+
+InfoTitle.TextColor3 =
+Color3.new(1,1,1)
 
 InfoTitle.Parent =
 InfoPage
@@ -164,14 +213,16 @@ local InfoText =
 Instance.new("TextLabel")
 
 InfoText.Size =
-UDim2.new(1,0,1,-30)
+UDim2.new(1,-10,1,-35)
 
 InfoText.Position =
-UDim2.new(0,0,0,30)
+UDim2.new(0,10,0,35)
 
-InfoText.BackgroundTransparency = 1
+InfoText.BackgroundTransparency =
+1
 
-InfoText.TextWrapped = true
+InfoText.TextWrapped =
+true
 
 InfoText.TextXAlignment =
 Enum.TextXAlignment.Left
@@ -180,29 +231,66 @@ InfoText.TextYAlignment =
 Enum.TextYAlignment.Top
 
 InfoText.Font =
-Enum.Font.Gotham
+Enum.Font.GothamBold -- как DOODO HUB
 
 InfoText.TextSize =
 13
 
 InfoText.TextColor3 =
-Color3.fromRGB(210,210,210)
-
-
-InfoText.Text =
-"Version: 1.0\n\nExecutor:\n"
-..
-executorName
-..
-"\n\nUser:\n"
-..
-player.Name
-
+Color3.fromRGB(255,255,255)
 
 InfoText.Parent =
 InfoPage
 
+task.spawn(function()
 
+	while true do
+
+		local ping =
+		math.floor(
+		player:GetNetworkPing()*1000
+		)
+
+		local players =
+		#Players:GetPlayers()
+
+		local fps =
+		math.floor(workspace:GetRealPhysicsFPS())
+
+		InfoText.Text =
+
+"Version: 1.0\n\n"
+..
+
+"Executor:\n"
+..
+executorName
+..
+
+"\n\nFPS:\n"
+..
+fps
+..
+
+"\n\nPing:\n"
+..
+ping.." ms"
+..
+
+"\n\nPlayers:\n"
+..
+players
+..
+
+"\n\nUser:\n"
+..
+player.Name
+
+		task.wait(1)
+
+	end
+
+end)
 
 local infoOpen =
 false
