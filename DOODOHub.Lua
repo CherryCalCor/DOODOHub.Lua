@@ -122,6 +122,23 @@ LeftLine.Parent = MainFrame
 LeftLine.ZIndex = 2
 
 --========================
+-- INFO BUTTON
+--========================
+
+local InfoButton = Instance.new("TextButton")
+InfoButton.Size = UDim2.new(0, 40, 0, 20)
+InfoButton.Position = UDim2.new(0, 55, 0, 40) -- перед левой полоской
+InfoButton.BackgroundTransparency = 1
+InfoButton.BorderSizePixel = 0
+InfoButton.Text = "info"
+InfoButton.TextSize = 14
+InfoButton.Font = Enum.Font.Gotham
+InfoButton.TextColor3 = Color3.fromRGB(220,220,220)
+InfoButton.TextXAlignment = Enum.TextXAlignment.Left
+InfoButton.Parent = MainFrame
+InfoButton.ZIndex = 4
+
+--========================
 -- BUTTONS (FIXED)
 --========================
 
