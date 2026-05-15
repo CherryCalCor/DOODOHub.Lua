@@ -426,35 +426,6 @@ HomeButton.MouseButton1Click:Connect(function()
 	HomePage.Visible = true
 end)
 
-
---========================
--- WELCOME TEXT
---========================
-
-local WelcomeBack =
-Instance.new("TextLabel")
-
-WelcomeBack.Parent =
-HomePage
-
-WelcomeBack.Size =
-UDim2.new(1,0,0,30)
-
-WelcomeBack.Position =
-UDim2.new(0,0,0,5)
-
-WelcomeBack.Text =
-"Welcome back!"
-
-WelcomeBack.Font =
-Enum.Font.GothamBlack
-
-WelcomeBack.TextSize =
-28
-
-WelcomeBack.LayoutOrder =
-1
-
 --========================
 -- STATUS MENU
 --========================
@@ -468,10 +439,24 @@ HomePage
 StatusBox.Size =
 UDim2.new(
 1,
--20,
+-30,
 0,
-180
+200
 )
+
+StatusBox.Position =
+UDim2.new(
+0,
+10,
+0,
+0
+)
+
+StatusBox.LayoutOrder =
+1
+
+StatusBox.LayoutOrder =
+2
 
 StatusBox.LayoutOrder =
 2
@@ -642,21 +627,21 @@ HomePage
 ActionBox.Size =
 UDim2.new(
 1,
--20,
+-30,
 0,
 140
 )
 
-ActionBox.LayoutOrder =
-3
-
 ActionBox.Position =
 UDim2.new(
 0,
+10,
 0,
-0,
-20
+35
 )
+
+ActionBox.LayoutOrder =
+2
 
 ActionBox.BackgroundTransparency =
 0.85
