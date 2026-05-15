@@ -251,8 +251,8 @@ task.spawn(function()
 		player:GetNetworkPing()*1000
 		)
 
-		local players =
-		#Players:GetPlayers()
+		local playerCount =
+#game:GetService("Players"):GetPlayers()
 
 		local fps =
 		math.floor(workspace:GetRealPhysicsFPS())
@@ -279,7 +279,7 @@ ping.." ms"
 
 "\n\nPlayers:\n"
 ..
-players
+playerCount
 ..
 
 "\n\nUser:\n"
@@ -302,6 +302,261 @@ InfoButton.MouseButton1Click:Connect(function()
 
 	InfoPage.Visible =
 	infoOpen
+
+end)
+
+--========================
+-- TELEPORT BUTTON
+--========================
+
+local TeleportButton =
+Instance.new("TextButton")
+
+TeleportButton.Size =
+UDim2.new(0,60,0,20)
+
+TeleportButton.Position =
+UDim2.new(0,25,0,65) -- ниже info
+
+TeleportButton.BackgroundTransparency =
+1
+
+TeleportButton.Text =
+"Teleport"
+
+TeleportButton.Font =
+Enum.Font.GothamBold
+
+TeleportButton.TextSize =
+14
+
+TeleportButton.TextColor3 =
+Color3.fromRGB(220,220,220)
+
+TeleportButton.Parent =
+MainFrame
+
+
+local TPPage =
+Instance.new("Frame")
+
+TPPage.Size =
+UDim2.new(0,280,0,180)
+
+TPPage.Position =
+UDim2.new(0,115,0,45)
+
+TPPage.BackgroundColor3 =
+Color3.fromRGB(0,140,255)
+
+TPPage.BackgroundTransparency =
+0.88
+
+TPPage.Visible =
+false
+
+TPPage.Parent =
+MainFrame
+
+
+local TPCorner =
+Instance.new("UICorner")
+
+TPCorner.CornerRadius =
+UDim.new(0,10)
+
+TPCorner.Parent =
+TPPage
+
+
+local TPStroke =
+Instance.new("UIStroke")
+
+TPStroke.Color =
+Color3.fromRGB(0,140,255)
+
+TPStroke.Parent =
+TPPage
+
+
+
+-- PLAYER LIST
+
+local PlayerList =
+Instance.new("ScrollingFrame")
+
+PlayerList.Size =
+UDim2.new(0,110,1,-10)
+
+PlayerList.Position =
+UDim2.new(0,5,0,5)
+
+PlayerList.CanvasSize =
+UDim2.new()
+
+PlayerList.BackgroundTransparency =
+1
+
+PlayerList.Parent =
+TPPage
+
+
+local layout =
+Instance.new("UIListLayout")
+
+layout.Parent =
+PlayerList
+
+
+-- PLAYER INFO RIGHT
+
+local SelectedAvatar =
+Instance.new("ImageLabel")
+
+SelectedAvatar.Size =
+UDim2.new(0,60,0,60)
+
+SelectedAvatar.Position =
+UDim2.new(0,150,0,20)
+
+SelectedAvatar.BackgroundTransparency =
+1
+
+SelectedAvatar.Parent =
+TPPage
+
+
+local SelectedName =
+Instance.new("TextLabel")
+
+SelectedName.Size =
+UDim2.new(0,100,0,20)
+
+SelectedName.Position =
+UDim2.new(0,130,0,90)
+
+SelectedName.BackgroundTransparency =
+1
+
+SelectedName.Font =
+Enum.Font.GothamBold
+
+SelectedName.TextColor3 =
+Color3.new(1,1,1)
+
+SelectedName.Parent =
+TPPage
+
+
+local TPButton =
+Instance.new("TextButton")
+
+TPButton.Size =
+UDim2.new(0,90,0,30)
+
+TPButton.Position =
+UDim2.new(0,135,0,120)
+
+TPButton.Text =
+"Teleport"
+
+TPButton.Font =
+Enum.Font.GothamBold
+
+TPButton.BackgroundColor3 =
+Color3.fromRGB(0,140,255)
+
+TPButton.Parent =
+TPPage
+
+
+local selectedPlayer =
+nil
+
+
+for _,plr in pairs(
+Players:GetPlayers()
+) do
+
+	local btn =
+	Instance.new(
+	"TextButton"
+	)
+
+	btn.Size =
+	UDim2.new(1,0,0,25)
+
+	btn.Text =
+	plr.Name
+
+	btn.Font =
+	Enum.Font.GothamBold
+
+	btn.Parent =
+	PlayerList
+
+
+	btn.MouseButton1Click:Connect(function()
+
+		selectedPlayer =
+		plr
+
+		SelectedName.Text =
+		plr.Name
+
+
+		local img =
+		Players:GetUserThumbnailAsync(
+			plr.UserId,
+			Enum.ThumbnailType.HeadShot,
+			Enum.ThumbnailSize.Size100x100
+		)
+
+		SelectedAvatar.Image =
+		img
+
+	end)
+
+end
+
+
+TPButton.MouseButton1Click:Connect(function()
+
+	if selectedPlayer
+	and selectedPlayer.Character
+	and player.Character then
+
+		player.Character:
+		PivotTo(
+
+		selectedPlayer
+		.Character
+		:GetPivot()
+
+		)
+
+	end
+
+end)
+
+
+
+local tpOpen =
+false
+
+TeleportButton.MouseButton1Click:Connect(function()
+
+	tpOpen =
+	not tpOpen
+
+	TPPage.Visible =
+	tpOpen
+
+	InfoPage.Visible =
+	false
+
+	infoOpen =
+	false
 
 end)
 
@@ -387,6 +642,8 @@ MinimizeButton.MouseButton1Click:Connect(function()
 InfoButton.Visible = show
 InfoPage.Visible =
 show and infoOpen
+TeleportButton.Visible = show
+TPPage.Visible = false
 
 	if minimized then
 		MainFrame.Size = UDim2.new(fullSize.X.Scale, fullSize.X.Offset, 0, 40)
