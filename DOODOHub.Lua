@@ -542,13 +542,18 @@ UDim.new(0,8)
 local selectedPlayer
 
 
-
 local function refreshPlayers()
 
 	PlayerList:ClearAllChildren()
 
+	local layout =
+	Instance.new("UIListLayout")
+
 	layout.Parent =
 	PlayerList
+
+	layout.Padding =
+	UDim.new(0,4)
 
 
 	for _,plr in ipairs(
@@ -556,17 +561,15 @@ local function refreshPlayers()
 	) do
 
 		local btn =
-		Instance.new(
-		"TextButton"
-		)
+		Instance.new("TextButton")
 
 		btn.Parent =
 		PlayerList
 
 		btn.Size =
 		UDim2.new(
-		1,-5,
-		0,28
+			1,-5,
+			0,28
 		)
 
 		btn.Text =
@@ -583,7 +586,7 @@ local function refreshPlayers()
 
 		btn.BackgroundColor3 =
 		Color3.fromRGB(
-		0,140,255
+			0,140,255
 		)
 
 		btn.BackgroundTransparency =
@@ -592,22 +595,17 @@ local function refreshPlayers()
 		btn.BorderSizePixel =
 		0
 
-local corner =
-Instance.new(
-"UICorner"
-)
 
-corner.CornerRadius =
-UDim.new(0,7)
-
-corner.Parent =
-btn
-
+		local corner =
 		Instance.new(
-		"UICorner",
-		btn
-		).CornerRadius =
+			"UICorner"
+		)
+
+		corner.CornerRadius =
 		UDim.new(0,7)
+
+		corner.Parent =
+		btn
 
 
 		btn.MouseButton1Click:Connect(function()
@@ -620,14 +618,13 @@ btn
 
 
 			local img =
-			Players:
-			GetUserThumbnailAsync(
+			Players:GetUserThumbnailAsync(
 
-			plr.UserId,
+				plr.UserId,
 
-			Enum.ThumbnailType.HeadShot,
+				Enum.ThumbnailType.HeadShot,
 
-			Enum.ThumbnailSize.Size100x100
+				Enum.ThumbnailSize.Size100x100
 			)
 
 			SelectedAvatar.Image =
@@ -640,13 +637,11 @@ btn
 end
 
 
+
 refreshPlayers()
 
-Players.PlayerAdded:
-Connect(refreshPlayers)
-
-Players.PlayerRemoving:
-Connect(refreshPlayers)
+Players.PlayerAdded:Connect(refreshPlayers)
+Players.PlayerRemoving:Connect(refreshPlayers)
 
 
 
