@@ -493,30 +493,19 @@ Color3.new(1,1,1)
 TPButton.BorderSizePixel =
 0
 
-local tpCorner =
-Instance.new(
-"UICorner"
-)
-
-tpCorner.CornerRadius =
-UDim.new(0,8)
-
-tpCorner.Parent =
-TPButton
-
-
 local tpStroke =
-Instance.new(
-"UIStroke"
-)
+Instance.new("UIStroke")
 
 tpStroke.Color =
 Color3.fromRGB(
 0,140,255
 )
 
+tpStroke.Thickness =
+1
+
 tpStroke.Transparency =
-0.4
+0.3
 
 tpStroke.Parent =
 TPButton
@@ -551,30 +540,30 @@ local function refreshPlayers()
 	) do
 
 		local btn =
-		Instance.new("TextButton")
+Instance.new("TextButton")
 
-		btn.Parent =
-		PlayerList
+btn.Parent =
+PlayerList
 
-		btn.Size =
-		UDim2.new(
-			1,-5,
-			0,28
-		)
+btn.Size =
+UDim2.new(
+	1,-5,
+	0,28
+)
 
-		btn.Text =
-		plr.Name
+btn.Text =
+plr.Name
 
-		btn.Font =
-		Enum.Font.GothamBold
+btn.Font =
+Enum.Font.GothamBold
 
-		btn.TextSize =
-		13
+btn.TextSize =
+13
 
-		btn.TextColor3 =
-		Color3.new(1,1,1)
+btn.TextColor3 =
+Color3.new(1,1,1) -- белый текст
 
-		btn.BackgroundColor3 =
+btn.BackgroundColor3 =
 Color3.fromRGB(
 20,20,20
 )
@@ -586,39 +575,28 @@ btn.BorderSizePixel =
 0
 
 
+-- скругление
 local corner =
 Instance.new("UICorner")
+
 corner.CornerRadius =
 UDim.new(0,7)
+
 corner.Parent =
 btn
 
 
+-- ОДНА обводка как у ExecutorFrame
 local stroke =
 Instance.new("UIStroke")
+
 stroke.Color =
 Color3.fromRGB(
 0,140,255
 )
 
 stroke.Thickness =
-1.2
-
-stroke.Transparency =
-0.1
-
-stroke.Parent =
-btn
-
-local stroke =
-Instance.new(
-"UIStroke"
-)
-
-stroke.Color =
-Color3.fromRGB(
-0,140,255
-)
+1
 
 stroke.Transparency =
 0.3
