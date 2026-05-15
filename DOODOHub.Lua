@@ -122,21 +122,89 @@ LeftLine.Parent = MainFrame
 LeftLine.ZIndex = 2
 
 --========================
--- INFO BUTTON
+-- INFO BUTTON + PANEL
 --========================
 
 local InfoButton = Instance.new("TextButton")
-InfoButton.Size = UDim2.new(0, 40, 0, 20)
-InfoButton.Position = UDim2.new(0, 55, 0, 40) -- перед левой полоской
+InfoButton.Size = UDim2.new(0,40,0,20)
+InfoButton.Position = UDim2.new(0,35,0,40) -- было 55, стало левее
 InfoButton.BackgroundTransparency = 1
-InfoButton.BorderSizePixel = 0
 InfoButton.Text = "info"
-InfoButton.TextSize = 14
 InfoButton.Font = Enum.Font.Gotham
+InfoButton.TextSize = 14
 InfoButton.TextColor3 = Color3.fromRGB(220,220,220)
-InfoButton.TextXAlignment = Enum.TextXAlignment.Left
 InfoButton.Parent = MainFrame
 InfoButton.ZIndex = 4
+
+
+-- INFO PAGE
+
+local InfoPage = Instance.new("Frame")
+InfoPage.Size = UDim2.new(0,290,0,200)
+InfoPage.Position = UDim2.new(0,115,0,45)
+InfoPage.BackgroundTransparency = 1
+InfoPage.Visible = false
+InfoPage.Parent = MainFrame
+InfoPage.ZIndex = 3
+
+
+local InfoTitle = Instance.new("TextLabel")
+InfoTitle.Size = UDim2.new(1,0,0,30)
+InfoTitle.BackgroundTransparency = 1
+InfoTitle.Text = "INFO"
+InfoTitle.Font = Enum.Font.GothamBold
+InfoTitle.TextSize = 18
+InfoTitle.TextColor3 = Color3.fromRGB(255,255,255)
+InfoTitle.TextXAlignment =
+Enum.TextXAlignment.Left
+InfoTitle.Parent = InfoPage
+
+
+local InfoText = Instance.new("TextLabel")
+InfoText.Size = UDim2.new(1,0,1,-30)
+InfoText.Position = UDim2.new(0,0,0,30)
+InfoText.BackgroundTransparency = 1
+InfoText.Text =
+[[Version: 1.0
+
+Executor:
+]]..executorName..[[
+
+User:
+]]..player.Name
+
+InfoText.TextWrapped = true
+InfoText.TextYAlignment =
+Enum.TextYAlignment.Top
+
+InfoText.TextXAlignment =
+Enum.TextXAlignment.Left
+
+InfoText.Font =
+Enum.Font.Gotham
+
+InfoText.TextSize = 13
+InfoText.TextColor3 =
+Color3.fromRGB(210,210,210)
+
+InfoText.Parent =
+InfoPage
+
+
+
+-- OPEN/CLOSE
+
+local infoOpen = false
+
+InfoButton.MouseButton1Click:Connect(function()
+
+	infoOpen =
+	not infoOpen
+
+	InfoPage.Visible =
+	infoOpen
+
+end)
 
 --========================
 -- BUTTONS (FIXED)
@@ -217,6 +285,8 @@ MinimizeButton.MouseButton1Click:Connect(function()
 	AvatarImage.Visible = show
 	WelcomeLabel.Visible = show
 	NameLabel.Visible = show
+InfoButton.Visible = show
+InfoPage.Visible = false
 
 	if minimized then
 		MainFrame.Size = UDim2.new(fullSize.X.Scale, fullSize.X.Offset, 0, 40)
