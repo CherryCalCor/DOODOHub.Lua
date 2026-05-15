@@ -292,24 +292,6 @@ player.Name
 
 end)
 
-local infoOpen = false
-
-InfoButton.MouseButton1Click:Connect(function()
-
-	infoOpen =
-	not infoOpen
-
-	InfoPage.Visible =
-	infoOpen
-
-	-- закрываем teleport
-	TPPage.Visible =
-	false
-
-	tpOpen =
-	false
-
-end)
 
 --========================
 -- TELEPORT BUTTON
@@ -326,6 +308,9 @@ UDim2.new(0,25,0,65)
 
 TeleportButton.BackgroundTransparency =
 1
+
+TeleportButton.BorderSizePixel =
+0
 
 TeleportButton.Text =
 "teleport"
@@ -495,10 +480,12 @@ TPButton.Font =
 Enum.Font.GothamBold
 
 TPButton.BackgroundColor3 =
-Color3.fromRGB(0,140,255)
+Color3.fromRGB(
+20,20,20
+)
 
 TPButton.BackgroundTransparency =
-0.8
+0.15
 
 TPButton.TextColor3 =
 Color3.new(1,1,1)
@@ -591,12 +578,12 @@ local function refreshPlayers()
 		Color3.new(1,1,1)
 
 		btn.BackgroundColor3 =
-		Color3.fromRGB(
-			0,140,255
-		)
+Color3.fromRGB(
+20,20,20
+)
 
-		btn.BackgroundTransparency =
-		0.85
+btn.BackgroundTransparency =
+0.15
 
 		btn.BorderSizePixel =
 		0
@@ -613,6 +600,21 @@ local function refreshPlayers()
 		corner.Parent =
 		btn
 
+local stroke =
+Instance.new(
+"UIStroke"
+)
+
+stroke.Color =
+Color3.fromRGB(
+0,140,255
+)
+
+stroke.Transparency =
+0.3
+
+stroke.Parent =
+btn
 
 		btn.MouseButton1Click:Connect(function()
 
@@ -676,6 +678,28 @@ end)
 local tpOpen =
 false
 
+local infoOpen =
+false
+
+InfoButton.MouseButton1Click:Connect(function()
+
+	infoOpen =
+	not infoOpen
+
+	InfoPage.Visible =
+	infoOpen
+
+	if infoOpen then
+		TPPage.Visible =
+		false
+
+		tpOpen =
+		false
+	end
+
+end)
+
+
 TeleportButton.MouseButton1Click:Connect(function()
 
 	tpOpen =
@@ -684,12 +708,13 @@ TeleportButton.MouseButton1Click:Connect(function()
 	TPPage.Visible =
 	tpOpen
 
-	-- закрываем info
-	InfoPage.Visible =
-	false
+	if tpOpen then
+		InfoPage.Visible =
+		false
 
-	infoOpen =
-	false
+		infoOpen =
+		false
+	end
 
 end)
 
