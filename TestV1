@@ -445,3 +445,91 @@ end)
 ToggleButton.MouseButton1Click:Connect(function()
 	MainFrame.Visible = not MainFrame.Visible
 end)
+
+--========================
+-- EXECUTOR DISPLAY
+--========================
+
+local ExecutorFrame = Instance.new("Frame")
+ExecutorFrame.Size = UDim2.new(0, 170, 0, 40)
+ExecutorFrame.Position = UDim2.new(0.5, -85, 0, 15)
+ExecutorFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+ExecutorFrame.BackgroundTransparency = 0.15
+ExecutorFrame.BorderSizePixel = 0
+ExecutorFrame.Parent = ScreenGui
+ExecutorFrame.ZIndex = 20
+
+local ExecutorCorner =
+	Instance.new("UICorner")
+
+ExecutorCorner.CornerRadius =
+	UDim.new(0,12)
+
+ExecutorCorner.Parent =
+	ExecutorFrame
+
+
+local ExecutorStroke =
+	Instance.new("UIStroke")
+
+ExecutorStroke.Parent =
+	ExecutorFrame
+
+ExecutorStroke.Color =
+	Color3.fromRGB(0,140,255)
+
+ExecutorStroke.Thickness =
+	1.2
+
+ExecutorStroke.Transparency =
+	0.2
+
+
+local ExecutorLabel =
+	Instance.new("TextLabel")
+
+ExecutorLabel.Parent =
+	ExecutorFrame
+
+ExecutorLabel.Size =
+	UDim2.new(1,-10,1,0)
+
+ExecutorLabel.Position =
+	UDim2.new(0,5,0,0)
+
+ExecutorLabel.BackgroundTransparency =
+	1
+
+ExecutorLabel.TextColor3 =
+	Color3.new(1,1,1)
+
+ExecutorLabel.Font =
+	Enum.Font.GothamBold
+
+ExecutorLabel.TextSize =
+	14
+
+
+-- Detect executor
+local executor = "Unknown"
+
+pcall(function()
+
+	if identifyexecutor then
+		executor =
+			tostring(
+				identifyexecutor()
+			)
+
+	elseif getexecutorname then
+		executor =
+			tostring(
+				getexecutorname()
+			)
+	end
+
+end)
+
+ExecutorLabel.Text =
+	"Executor: " ..
+	executor
