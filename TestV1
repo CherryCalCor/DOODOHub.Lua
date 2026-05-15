@@ -24,6 +24,214 @@ MainFrame.BackgroundTransparency = 0.15
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
 MainFrame.ZIndex = 2
+MainFrame.Visible = false
+
+--========================
+-- LOADING SCREEN (7 SEC)
+--========================
+
+local TweenService = game:GetService("TweenService")
+local Lighting = game:GetService("Lighting")
+
+local Blur = Instance.new("BlurEffect")
+Blur.Size = 0
+Blur.Parent = Lighting
+
+local LoadingFrame = Instance.new("Frame")
+LoadingFrame.Parent = ScreenGui
+LoadingFrame.Size = UDim2.new(1,0,1,0)
+LoadingFrame.BackgroundColor3 = Color3.fromRGB(10,10,15)
+LoadingFrame.BorderSizePixel = 0
+LoadingFrame.ZIndex = 999
+
+local LoadingText = Instance.new("TextLabel")
+LoadingText.Parent = LoadingFrame
+LoadingText.AnchorPoint = Vector2.new(.5,.5)
+LoadingText.Position = UDim2.new(.5,0,.45,0)
+LoadingText.Size = UDim2.new(0,300,0,50)
+LoadingText.BackgroundTransparency = 1
+LoadingText.Text = "DOODO HUB"
+LoadingText.Font = Enum.Font.GothamBlack
+LoadingText.TextSize = 38
+LoadingText.TextColor3 = Color3.new(1,1,1)
+LoadingText.TextTransparency = 1
+LoadingText.ZIndex = 1000
+
+local LoadingSub = Instance.new("TextLabel")
+LoadingSub.Parent = LoadingFrame
+LoadingSub.AnchorPoint = Vector2.new(.5,.5)
+LoadingSub.Position = UDim2.new(.5,0,.55,0)
+LoadingSub.Size = UDim2.new(0,260,0,30)
+LoadingSub.BackgroundTransparency = 1
+LoadingSub.Text = "Loading interface..."
+LoadingSub.Font = Enum.Font.Gotham
+LoadingSub.TextSize = 16
+LoadingSub.TextColor3 = Color3.fromRGB(180,180,180)
+LoadingSub.TextTransparency = 1
+LoadingSub.ZIndex = 1000
+
+-- Glow
+local Glow = Instance.new("ImageLabel")
+Glow.Parent = LoadingFrame
+Glow.AnchorPoint = Vector2.new(.5,.5)
+Glow.Position = UDim2.new(.5,0,.5,0)
+Glow.Size = UDim2.new(0,220,0,220)
+Glow.BackgroundTransparency = 1
+Glow.Image = "rbxassetid://5028857084"
+Glow.ImageColor3 = Color3.fromRGB(0,140,255)
+Glow.ImageTransparency = 1
+Glow.ZIndex = 999
+
+-- Loading Bar
+local BarBack = Instance.new("Frame")
+BarBack.Parent = LoadingFrame
+BarBack.Size = UDim2.new(0,180,0,6)
+BarBack.Position = UDim2.new(.5,-90,.65,0)
+BarBack.BackgroundColor3 =
+	Color3.fromRGB(35,35,45)
+BarBack.BorderSizePixel = 0
+
+Instance.new(
+	"UICorner",
+	BarBack
+).CornerRadius = UDim.new(1,0)
+
+local Bar = Instance.new("Frame")
+Bar.Parent = BarBack
+Bar.Size = UDim2.new(0,0,1,0)
+Bar.BackgroundColor3 =
+	Color3.fromRGB(0,140,255)
+Bar.BorderSizePixel = 0
+
+Instance.new(
+	"UICorner",
+	Bar
+).CornerRadius = UDim.new(1,0)
+
+-- Animation
+TweenService:Create(
+	Blur,
+	TweenInfo.new(.8),
+	{Size = 24}
+):Play()
+
+TweenService:Create(
+	LoadingText,
+	TweenInfo.new(1),
+	{TextTransparency = 0}
+):Play()
+
+TweenService:Create(
+	LoadingSub,
+	TweenInfo.new(1),
+	{TextTransparency = 0}
+):Play()
+
+TweenService:Create(
+	Glow,
+	TweenInfo.new(1),
+	{ImageTransparency = .35}
+):Play()
+
+TweenService:Create(
+	Bar,
+	TweenInfo.new(
+		7,
+		Enum.EasingStyle.Linear
+	),
+	{
+		Size = UDim2.new(1,0,1,0)
+	}
+):Play()
+
+-- Glow Pulse
+task.spawn(function()
+
+	while LoadingFrame.Parent do
+
+		TweenService:Create(
+			Glow,
+			TweenInfo.new(1.5),
+			{
+				Rotation =
+				Glow.Rotation + 25,
+
+				ImageTransparency =
+				0.55
+			}
+		):Play()
+
+		task.wait(1.5)
+
+		TweenService:Create(
+			Glow,
+			TweenInfo.new(1.5),
+			{
+				ImageTransparency =
+				0.3
+			}
+		):Play()
+
+		task.wait(1.5)
+
+	end
+
+end)
+
+-- WAIT 7 SEC
+task.spawn(function()
+
+	task.wait(7)
+
+	TweenService:Create(
+		LoadingFrame,
+		TweenInfo.new(1),
+		{
+			BackgroundTransparency = 1
+		}
+	):Play()
+
+	TweenService:Create(
+		LoadingText,
+		TweenInfo.new(1),
+		{
+			TextTransparency = 1
+		}
+	):Play()
+
+	TweenService:Create(
+		LoadingSub,
+		TweenInfo.new(1),
+		{
+			TextTransparency = 1
+		}
+	):Play()
+
+	TweenService:Create(
+		Glow,
+		TweenInfo.new(1),
+		{
+			ImageTransparency = 1
+		}
+	):Play()
+
+	TweenService:Create(
+		Blur,
+		TweenInfo.new(1),
+		{
+			Size = 0
+		}
+	):Play()
+
+	task.wait(1)
+
+	LoadingFrame:Destroy()
+	Blur:Destroy()
+
+	-- SHOW MAIN GUI
+	MainFrame.Visible = true
+
+end)
 
 local Corner = Instance.new("UICorner")
 Corner.CornerRadius = UDim.new(0, 14)
