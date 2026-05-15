@@ -1032,6 +1032,18 @@ UDim2.new(0,10,0,95)
 List.Text =
 "Server List"
 
+List.MouseButton1Click:Connect(function()
+
+TopServer.Visible =
+not TopServer.Visible
+
+if not TopServer.Visible then
+ServerList.Visible =
+false
+end
+
+end)
+
 local ServerGui =
 Instance.new("ScreenGui")
 
@@ -1040,7 +1052,7 @@ player.PlayerGui
 
 
 local TopServer =
-Instance.new("Frame")
+Instance.new("TextButton")
 
 TopServer.Parent =
 ServerGui
@@ -1053,6 +1065,35 @@ UDim2.new(.5,-90,0,15)
 
 TopServer.BackgroundColor3 =
 Color3.fromRGB(20,20,20)
+
+TopServer.BorderSizePixel =
+0
+
+TopServer.AutoButtonColor =
+false
+
+TopServer.Visible =
+false -- скрыт при запуске
+
+TopServer.Text = ""
+
+Instance.new(
+"UICorner",
+TopServer
+).CornerRadius =
+UDim.new(0,10)
+
+local topStroke =
+Instance.new("UIStroke")
+
+topStroke.Parent =
+TopServer
+
+topStroke.Color =
+Color3.fromRGB(0,140,255)
+
+topStroke.Transparency =
+0.3
 
 Instance.new(
 "UICorner",
@@ -1117,34 +1158,42 @@ Label.TextColor3 =
 Color3.new(1,1,1)
 
 local Min =
-Instance.new("TextButton")
+Instance.new("ImageButton")
 
 Min.Parent =
 TopServer
 
-Min.Text =
-"_"
+Min.Size =
+UDim2.new(0,24,0,24)
 
 Min.Position =
-UDim2.new(
-1,-45,
-0,0
-)
+UDim2.new(1,-55,.5,-12)
 
-Min.Size =
-UDim2.new(
-0,20,
-1,0
-)
+Min.BackgroundTransparency =
+1
+
+Min.Image =
+"rbxassetid://6031094678" -- минус
+
+
 
 local Sort =
-Instance.new("TextButton")
+Instance.new("ImageButton")
 
 Sort.Parent =
 TopServer
 
-Sort.Text =
-"⇅"
+Sort.Size =
+UDim2.new(0,24,0,24)
+
+Sort.Position =
+UDim2.new(1,-28,.5,-12)
+
+Sort.BackgroundTransparency =
+1
+
+Sort.Image =
+"rbxassetid://6034818372" -- сортировка
 
 Sort.Position =
 UDim2.new(
@@ -1162,6 +1211,48 @@ local ServerList =
 Instance.new(
 "ScrollingFrame"
 )
+
+ServerList.BackgroundColor3 =
+Color3.fromRGB(20,20,20)
+
+ServerList.BorderSizePixel =
+0
+
+ServerList.CanvasSize =
+UDim2.new(0,0,0,5000)
+
+ServerList.ScrollBarThickness =
+4
+
+Instance.new(
+"UICorner",
+ServerList
+).CornerRadius =
+UDim.new(0,12)
+
+local stroke =
+Instance.new("UIStroke")
+
+stroke.Parent =
+ServerList
+
+stroke.Color =
+Color3.fromRGB(0,140,255)
+
+stroke.Transparency =
+0.3
+
+
+local layout =
+Instance.new(
+"UIListLayout"
+)
+
+layout.Parent =
+ServerList
+
+layout.Padding =
+UDim.new(0,5)
 
 ServerList.Parent =
 ServerGui
@@ -1181,10 +1272,10 @@ UDim2.new(
 ServerList.Visible =
 false
 
-List.MouseButton1Click:Connect(function()
+TopServer.MouseButton1Click:Connect(function()
 
-ServerList.Visible =
-not ServerList.Visible
+	ServerList.Visible =
+	not ServerList.Visible
 
 end)
 
@@ -1204,24 +1295,61 @@ game.PlaceId
 
 )
 
-for _,server in pairs(
-response.data
-) do
-
 local join =
-Instance.new(
-"TextButton"
-)
+Instance.new("TextButton")
 
 join.Parent =
 ServerList
 
+join.Size =
+UDim2.new(
+1,-10,
+0,35
+)
+
 join.Text =
+"Players: "
+..
 server.playing
 ..
 "/"
 ..
 server.maxPlayers
+
+join.Font =
+Enum.Font.GothamBold
+
+join.TextColor3 =
+Color3.new(1,1,1)
+
+join.BackgroundColor3 =
+Color3.fromRGB(20,20,20)
+
+join.BorderSizePixel =
+0
+
+
+Instance.new(
+"UICorner",
+join
+).CornerRadius =
+UDim.new(0,8)
+
+
+local stroke =
+Instance.new("UIStroke")
+
+stroke.Parent =
+join
+
+stroke.Color =
+Color3.fromRGB(
+0,140,255
+)
+
+stroke.Transparency =
+0.3
+
 
 join.MouseButton1Click:
 Connect(function()
