@@ -292,8 +292,7 @@ player.Name
 
 end)
 
-local infoOpen =
-false
+local infoOpen = false
 
 InfoButton.MouseButton1Click:Connect(function()
 
@@ -302,6 +301,13 @@ InfoButton.MouseButton1Click:Connect(function()
 
 	InfoPage.Visible =
 	infoOpen
+
+	-- закрываем teleport
+	TPPage.Visible =
+	false
+
+	tpOpen =
+	false
 
 end)
 
@@ -678,6 +684,7 @@ TeleportButton.MouseButton1Click:Connect(function()
 	TPPage.Visible =
 	tpOpen
 
+	-- закрываем info
 	InfoPage.Visible =
 	false
 
