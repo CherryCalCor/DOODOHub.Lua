@@ -1279,105 +1279,119 @@ TopServer.MouseButton1Click:Connect(function()
 
 end)
 
-local response =
-HttpService:JSONDecode(
-	game:HttpGet(
-		"https://games.roblox.com/v1/games/"
-		..
-		game.PlaceId
-		..
-		"/servers/Public?limit=200"
-	)
-)
+local success,response =
+pcall(function()
 
-for _,server in pairs(response.data) do
-
-	local join =
-	Instance.new("TextButton")
-
-	join.Parent =
-	ServerList
-
-	join.Size =
-	UDim2.new(1,-10,0,35)
-
-	join.Text =
-	"Players: "
-	..
-	server.playing
-	..
-	"/"
-	..
-	server.maxPlayers
-
-	join.Font =
-	Enum.Font.GothamBold
-
-	join.TextColor3 =
-	Color3.new(1,1,1)
-
-	join.BackgroundColor3 =
-	Color3.fromRGB(20,20,20)
-
-	join.BorderSizePixel =
-	0
-
-
-	Instance.new(
-	"UICorner",
-	join
-	).CornerRadius =
-	UDim.new(0,8)
-
-
-	local stroke =
-	Instance.new("UIStroke")
-
-	stroke.Parent =
-	join
-
-	stroke.Color =
-	Color3.fromRGB(
-	0,140,255
+	return HttpService:JSONDecode(
+		game:HttpGet(
+			"https://games.roblox.com/v1/games/"
+			..
+			game.PlaceId
+			..
+			"/servers/Public?limit=100"
+		)
 	)
 
-	stroke.Transparency =
-	0.3
+end)
 
 
-	join.MouseButton1Click:
-	Connect(function()
+if success and response.data then
 
-		TeleportService:
-		TeleportToPlaceInstance(
+	for _,server in pairs(response.data) do
 
-			game.PlaceId,
+		local join =
+		Instance.new("TextButton")
 
-			server.id,
+		join.Parent =
+		ServerList
 
-			player
+		join.Size =
+		UDim2.new(1,-10,0,35)
 
+		join.Text =
+		"Players: "
+		..
+		server.playing
+		..
+		"/"
+		..
+		server.maxPlayers
+
+		join.Font =
+		Enum.Font.GothamBold
+
+		join.TextColor3 =
+		Color3.new(1,1,1)
+
+		join.BackgroundColor3 =
+		Color3.fromRGB(20,20,20)
+
+		join.BorderSizePixel =
+		0
+
+
+		Instance.new(
+		"UICorner",
+		join
+		).CornerRadius =
+		UDim.new(0,8)
+
+
+		local stroke =
+		Instance.new("UIStroke")
+
+		stroke.Parent =
+		join
+
+		stroke.Color =
+		Color3.fromRGB(
+		0,140,255
 		)
 
-	end)
+		stroke.Transparency =
+		0.3
+
+
+		join.MouseButton1Click:
+		Connect(function()
+
+			TeleportService:
+			TeleportToPlaceInstance(
+
+				game.PlaceId,
+
+				server.id,
+
+				player
+
+			)
+
+		end)
+
+	end
 
 end
 
 local serverOpen=false
 
-ServerButton.MouseButton1Click:
-Connect(function()
+ServerButton.MouseButton1Click:Connect(function()
 
-serverOpen =
-not serverOpen
+	serverOpen =
+	not serverOpen
 
-ServerPage.Visible =
-serverOpen
+	ServerPage.Visible =
+	serverOpen
 
-TPPage.Visible =
-false
-InfoPage.Visible =
-false
+	TPPage.Visible =
+	false
+	InfoPage.Visible =
+	false
+
+	tpOpen =
+	false
+
+	infoOpen =
+	false
 
 end)
 
