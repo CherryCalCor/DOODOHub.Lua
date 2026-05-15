@@ -1032,26 +1032,17 @@ UDim2.new(0,10,0,95)
 List.Text =
 "Server List"
 
-List.MouseButton1Click:Connect(function()
-
-	TopServer.Visible =
-	not TopServer.Visible
-
-	ServerList.Visible =
-	TopServer.Visible
-
-end)
-
 local ServerGui =
 Instance.new("ScreenGui")
 
-ServerGui.Parent =
-player.PlayerGui
-
+ServerGui.Name = "ServerGui"
 ServerGui.ResetOnSpawn = false
-
 ServerGui.ZIndexBehavior =
 Enum.ZIndexBehavior.Sibling
+ServerGui.DisplayOrder = 1 -- ниже DH
+
+ServerGui.Parent =
+player.PlayerGui
 
 local TopServer =
 Instance.new("TextButton")
@@ -1274,6 +1265,16 @@ UDim2.new(
 ServerList.Visible =
 false
 
+List.MouseButton1Click:Connect(function()
+
+    TopServer.Visible =
+    not TopServer.Visible
+
+    ServerList.Visible =
+    TopServer.Visible
+
+end)
+
 local success,response =
 pcall(function()
 
@@ -1494,6 +1495,7 @@ local ToggleGui = Instance.new("ScreenGui")
 ToggleGui.Name = "ToggleDH"
 ToggleGui.ResetOnSpawn = false
 ToggleGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ToggleGui.DisplayOrder = 999
 ToggleGui.Parent = player:WaitForChild("PlayerGui")
 
 local ToggleButton = Instance.new("TextButton")
