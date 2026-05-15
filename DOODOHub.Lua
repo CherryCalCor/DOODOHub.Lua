@@ -1282,11 +1282,11 @@ end)
 local response =
 HttpService:JSONDecode(
 	game:HttpGet(
-	"https://games.roblox.com/v1/games/"
-	..
-	game.PlaceId
-	..
-	"/servers/Public?limit=200"
+		"https://games.roblox.com/v1/games/"
+		..
+		game.PlaceId
+		..
+		"/servers/Public?limit=200"
 	)
 )
 
@@ -1299,10 +1299,7 @@ for _,server in pairs(response.data) do
 	ServerList
 
 	join.Size =
-	UDim2.new(
-		1,-10,
-		0,35
-	)
+	UDim2.new(1,-10,0,35)
 
 	join.Text =
 	"Players: "
@@ -1325,11 +1322,13 @@ for _,server in pairs(response.data) do
 	join.BorderSizePixel =
 	0
 
+
 	Instance.new(
 	"UICorner",
 	join
 	).CornerRadius =
 	UDim.new(0,8)
+
 
 	local stroke =
 	Instance.new("UIStroke")
@@ -1346,13 +1345,16 @@ for _,server in pairs(response.data) do
 	0.3
 
 
-	join.MouseButton1Click:Connect(function()
+	join.MouseButton1Click:
+	Connect(function()
 
 		TeleportService:
 		TeleportToPlaceInstance(
 
 			game.PlaceId,
+
 			server.id,
+
 			player
 
 		)
