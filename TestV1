@@ -273,6 +273,93 @@ Title.Parent = MainFrame
 Title.ZIndex = 3
 
 --========================
+-- EXECUTOR LABEL
+--========================
+
+local ExecutorBox = Instance.new("Frame")
+ExecutorBox.Size = UDim2.new(0, 110, 0, 24)
+ExecutorBox.Position = UDim2.new(0.5, -55, 0, 4)
+ExecutorBox.BackgroundColor3 =
+	Color3.fromRGB(25,25,25)
+
+ExecutorBox.BackgroundTransparency = 0.1
+ExecutorBox.BorderSizePixel = 0
+ExecutorBox.Parent = MainFrame
+ExecutorBox.ZIndex = 4
+
+local ExecCorner =
+	Instance.new("UICorner")
+
+ExecCorner.CornerRadius =
+	UDim.new(0,8)
+
+ExecCorner.Parent =
+	ExecutorBox
+
+local ExecStroke =
+	Instance.new("UIStroke")
+
+ExecStroke.Parent =
+	ExecutorBox
+
+ExecStroke.Color =
+	Color3.fromRGB(0,140,255)
+
+ExecStroke.Thickness =
+	1.2
+
+ExecStroke.Transparency =
+	0.2
+
+local ExecutorText =
+	Instance.new("TextLabel")
+
+ExecutorText.Parent =
+	ExecutorBox
+
+ExecutorText.Size =
+	UDim2.new(1,0,1,0)
+
+ExecutorText.BackgroundTransparency =
+	1
+
+ExecutorText.Text =
+	"Unknown"
+
+ExecutorText.Font =
+	Enum.Font.GothamBold
+
+ExecutorText.TextSize =
+	12
+
+ExecutorText.TextColor3 =
+	Color3.fromRGB(255,255,255)
+
+ExecutorText.ZIndex =
+	5
+
+
+-- Auto detect executor
+local executor = "Unknown"
+
+pcall(function()
+
+	if identifyexecutor then
+		executor =
+		identifyexecutor()
+
+	elseif getexecutorname then
+		executor =
+		getexecutorname()
+
+	end
+
+end)
+
+ExecutorText.Text =
+	tostring(executor)
+
+--========================
 -- LEFT LINE
 --========================
 
@@ -445,91 +532,3 @@ end)
 ToggleButton.MouseButton1Click:Connect(function()
 	MainFrame.Visible = not MainFrame.Visible
 end)
-
---========================
--- EXECUTOR DISPLAY
---========================
-
-local ExecutorFrame = Instance.new("Frame")
-ExecutorFrame.Size = UDim2.new(0, 170, 0, 40)
-ExecutorFrame.Position = UDim2.new(0.5, -85, 0, 15)
-ExecutorFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
-ExecutorFrame.BackgroundTransparency = 0.15
-ExecutorFrame.BorderSizePixel = 0
-ExecutorFrame.Parent = ScreenGui
-ExecutorFrame.ZIndex = 20
-
-local ExecutorCorner =
-	Instance.new("UICorner")
-
-ExecutorCorner.CornerRadius =
-	UDim.new(0,12)
-
-ExecutorCorner.Parent =
-	ExecutorFrame
-
-
-local ExecutorStroke =
-	Instance.new("UIStroke")
-
-ExecutorStroke.Parent =
-	ExecutorFrame
-
-ExecutorStroke.Color =
-	Color3.fromRGB(0,140,255)
-
-ExecutorStroke.Thickness =
-	1.2
-
-ExecutorStroke.Transparency =
-	0.2
-
-
-local ExecutorLabel =
-	Instance.new("TextLabel")
-
-ExecutorLabel.Parent =
-	ExecutorFrame
-
-ExecutorLabel.Size =
-	UDim2.new(1,-10,1,0)
-
-ExecutorLabel.Position =
-	UDim2.new(0,5,0,0)
-
-ExecutorLabel.BackgroundTransparency =
-	1
-
-ExecutorLabel.TextColor3 =
-	Color3.new(1,1,1)
-
-ExecutorLabel.Font =
-	Enum.Font.GothamBold
-
-ExecutorLabel.TextSize =
-	14
-
-
--- Detect executor
-local executor = "Unknown"
-
-pcall(function()
-
-	if identifyexecutor then
-		executor =
-			tostring(
-				identifyexecutor()
-			)
-
-	elseif getexecutorname then
-		executor =
-			tostring(
-				getexecutorname()
-			)
-	end
-
-end)
-
-ExecutorLabel.Text =
-	"Executor: " ..
-	executor
