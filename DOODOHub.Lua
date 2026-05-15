@@ -485,13 +485,10 @@ Color3.fromRGB(
 )
 
 TPButton.BackgroundTransparency =
-0.15
+0.1
 
 TPButton.TextColor3 =
 Color3.new(1,1,1)
-
-TPButton.BackgroundTransparency =
-0.8
 
 TPButton.BorderSizePixel =
 0
@@ -583,22 +580,35 @@ Color3.fromRGB(
 )
 
 btn.BackgroundTransparency =
-0.15
+0.1
 
-		btn.BorderSizePixel =
-		0
+btn.BorderSizePixel =
+0
 
 
-		local corner =
-		Instance.new(
-			"UICorner"
-		)
+local corner =
+Instance.new("UICorner")
+corner.CornerRadius =
+UDim.new(0,7)
+corner.Parent =
+btn
 
-		corner.CornerRadius =
-		UDim.new(0,7)
 
-		corner.Parent =
-		btn
+local stroke =
+Instance.new("UIStroke")
+stroke.Color =
+Color3.fromRGB(
+0,140,255
+)
+
+stroke.Thickness =
+1.2
+
+stroke.Transparency =
+0.1
+
+stroke.Parent =
+btn
 
 local stroke =
 Instance.new(
