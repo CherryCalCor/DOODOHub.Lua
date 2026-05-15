@@ -1034,13 +1034,11 @@ List.Text =
 
 List.MouseButton1Click:Connect(function()
 
-TopServer.Visible =
-not TopServer.Visible
+	TopServer.Visible =
+	not TopServer.Visible
 
-if not TopServer.Visible then
-ServerList.Visible =
-false
-end
+	ServerList.Visible =
+	TopServer.Visible
 
 end)
 
@@ -1050,6 +1048,10 @@ Instance.new("ScreenGui")
 ServerGui.Parent =
 player.PlayerGui
 
+ServerGui.ResetOnSpawn = false
+
+ServerGui.ZIndexBehavior =
+Enum.ZIndexBehavior.Sibling
 
 local TopServer =
 Instance.new("TextButton")
@@ -1272,18 +1274,11 @@ UDim2.new(
 ServerList.Visible =
 false
 
-TopServer.MouseButton1Click:Connect(function()
-
-	ServerList.Visible =
-	not ServerList.Visible
-
-end)
-
 local success,response =
 pcall(function()
 
 	return HttpService:JSONDecode(
-		game:HttpGet(
+		HttpService:GetAsync(
 			"https://games.roblox.com/v1/games/"
 			..
 			game.PlaceId
