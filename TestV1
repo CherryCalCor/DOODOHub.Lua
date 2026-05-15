@@ -373,6 +373,426 @@ LeftLine.Parent = MainFrame
 LeftLine.ZIndex = 2
 
 --========================
+-- TABS SYSTEM
+--========================
+
+local ContentFrame = Instance.new("Frame")
+ContentFrame.Parent = MainFrame
+ContentFrame.Size = UDim2.new(1,-115,1,-40)
+ContentFrame.Position = UDim2.new(0,110,0,35)
+ContentFrame.BackgroundTransparency = 1
+
+local HomePage = Instance.new("ScrollingFrame")
+HomePage.Parent = ContentFrame
+HomePage.Size = UDim2.new(1,0,1,0)
+HomePage.CanvasSize = UDim2.new(0,0,0,650)
+HomePage.ScrollBarThickness = 2
+HomePage.BackgroundTransparency = 1
+HomePage.BorderSizePixel = 0
+
+local Layout = Instance.new("UIListLayout")
+Layout.Parent = HomePage
+Layout.Padding = UDim.new(0,15)
+
+--========================
+-- HOME BUTTON
+--========================
+
+local HomeButton = Instance.new("TextButton")
+HomeButton.Parent = MainFrame
+HomeButton.Size = UDim2.new(0,85,0,30)
+HomeButton.Position = UDim2.new(0,10,0,45)
+
+HomeButton.BackgroundTransparency = 1
+HomeButton.Text =
+"🏠  Home"
+
+HomeButton.Font =
+Enum.Font.GothamBold
+
+HomeButton.TextSize = 15
+HomeButton.TextColor3 =
+Color3.fromRGB(0,140,255)
+
+HomeButton.TextXAlignment =
+Enum.TextXAlignment.Left
+
+
+HomeButton.MouseButton1Click:Connect(function()
+	HomePage.Visible = true
+end)
+
+
+--========================
+-- WELCOME TEXT
+--========================
+
+local WelcomeBack =
+Instance.new("TextLabel")
+
+WelcomeBack.Parent =
+HomePage
+
+WelcomeBack.Size =
+UDim2.new(1,0,0,40)
+
+WelcomeBack.BackgroundTransparency =
+1
+
+WelcomeBack.Text =
+"Welcome back!"
+
+WelcomeBack.Font =
+Enum.Font.GothamBlack
+
+WelcomeBack.TextSize =
+26
+
+WelcomeBack.TextColor3 =
+Color3.new(1,1,1)
+
+
+--========================
+-- STATUS MENU
+--========================
+
+local StatusBox =
+Instance.new("Frame")
+
+StatusBox.Parent =
+HomePage
+
+StatusBox.Size =
+UDim2.new(1,-20,0,170)
+
+StatusBox.BackgroundColor3 =
+Color3.fromRGB(0,140,255)
+
+StatusBox.BackgroundTransparency =
+0.85
+
+StatusBox.BorderSizePixel =
+0
+
+Instance.new(
+"UICorner",
+StatusBox
+).CornerRadius =
+UDim.new(0,10)
+
+local Stroke =
+Instance.new("UIStroke")
+
+Stroke.Parent =
+StatusBox
+
+Stroke.Color =
+Color3.fromRGB(0,140,255)
+
+Stroke.Transparency =
+0.2
+
+
+local StatusTitle =
+Instance.new("TextLabel")
+
+StatusTitle.Parent =
+StatusBox
+
+StatusTitle.Text =
+"Status"
+
+StatusTitle.Size =
+UDim2.new(1,0,0,35)
+
+StatusTitle.BackgroundTransparency =
+1
+
+StatusTitle.Font =
+Enum.Font.GothamBlack
+
+StatusTitle.TextSize =
+22
+
+StatusTitle.TextColor3 =
+Color3.new(1,1,1)
+
+
+local executor =
+ExecutorText.Text
+
+local gameName =
+game:GetService(
+"MarketplaceService"
+):GetProductInfo(game.PlaceId).Name
+
+
+local function fps()
+
+	local last =
+tick()
+
+	task.wait()
+
+	return math.floor(
+	1/(tick()-last)
+	)
+
+end
+
+
+local Stats =
+Instance.new(
+"TextLabel"
+)
+
+Stats.Parent =
+StatusBox
+
+Stats.Size =
+UDim2.new(1,-20,1,-40)
+
+Stats.Position =
+UDim2.new(
+0,
+10,
+0,
+40
+)
+
+Stats.BackgroundTransparency =
+1
+
+Stats.TextXAlignment =
+Enum.TextXAlignment.Left
+
+Stats.TextYAlignment =
+Enum.TextYAlignment.Top
+
+Stats.RichText =
+true
+
+Stats.Font =
+Enum.Font.GothamBold
+
+Stats.TextSize =
+14
+
+Stats.Text =
+""
+
+task.spawn(function()
+
+	local join =
+tick()
+
+	while task.wait(1) do
+
+		local ping =
+math.floor(
+game:GetService(
+"Stats"
+).Network.ServerStatsItem[
+"Data Ping"
+]:GetValue()
+)
+
+		local players =
+#Players:GetPlayers()
+
+		local time =
+math.floor(
+tick()-join
+)
+
+Stats.Text =
+"<font color='rgb(200,200,200)'>Executor</font>     <font color='rgb(0,100,255)'>"..executor.."</font>\n\n"..
+"<font color='rgb(200,200,200)'>Game</font>     <font color='rgb(0,100,255)'>"..gameName.."</font>\n\n"..
+"<font color='rgb(200,200,200)'>Ping</font>     <font color='rgb(120,255,120)'>"..ping.."</font>\n\n"..
+"<font color='rgb(200,200,200)'>FPS</font>     <font color='rgb(0,100,255)'>"..fps().."</font>\n\n"..
+"<font color='rgb(200,200,200)'>Players</font>     <font color='rgb(0,100,255)'>"..players.."</font>\n\n"..
+"<font color='rgb(200,200,200)'>Time</font>     <font color='rgb(0,100,255)'>"..time.."s</font>"
+
+	end
+
+end)
+
+
+--========================
+-- QUICK ACTIONS
+--========================
+
+local ActionBox =
+StatusBox:Clone()
+
+ActionBox.Parent =
+HomePage
+
+ActionBox.Size =
+UDim2.new(
+1,
+-20,
+0,
+140
+)
+
+ActionBox.BackgroundTransparency =
+0.85
+
+
+local ActionTitle =
+ActionBox:FindFirstChildOfClass(
+"TextLabel"
+)
+
+ActionTitle.Text =
+"⚡ Quick Actions"
+
+
+local function makeAction(
+text,
+y,
+callback
+)
+
+	local btn =
+Instance.new(
+"TextButton"
+	)
+
+	btn.Parent =
+ActionBox
+
+	btn.Size =
+UDim2.new(
+1,
+-20,
+0,
+40
+	)
+
+	btn.Position =
+UDim2.new(
+0,
+10,
+0,
+y
+	)
+
+	btn.Text =
+text
+
+	btn.BackgroundColor3 =
+Color3.fromRGB(
+10,
+10,
+10
+)
+
+	btn.TextColor3 =
+Color3.new(
+1,
+1,
+1
+)
+
+	btn.Font =
+Enum.Font.GothamBold
+
+	btn.TextSize =
+14
+
+
+	Instance.new(
+	"UICorner",
+	btn
+	).CornerRadius =
+	UDim.new(
+	0,
+	10
+	)
+
+
+	local s =
+Instance.new(
+"UIStroke"
+	)
+
+	s.Parent =
+btn
+
+	s.Color =
+Color3.fromRGB(
+0,
+140,
+255
+	)
+
+	btn.MouseButton1Click:
+Connect(
+callback
+	)
+
+end
+
+
+makeAction(
+"🔄 Rejoin",
+40,
+function()
+
+game:GetService(
+"TeleportService"
+):Teleport(
+game.PlaceId,
+player
+)
+
+end
+)
+
+
+makeAction(
+"🌐 Server Hop",
+90,
+function()
+
+local servers =
+game.HttpService:
+JSONDecode(
+game:
+HttpGet(
+"https://games.roblox.com/v1/games/"..
+game.PlaceId..
+"/servers/Public?limit=100"
+)
+)
+
+for _,v in pairs(
+servers.data
+) do
+
+if v.playing <
+v.maxPlayers then
+
+game:GetService(
+"TeleportService"
+):TeleportToPlaceInstance(
+game.PlaceId,
+v.id,
+player
+)
+
+break
+
+end
+
+end
+
+end
+)
+
+--========================
 -- BUTTONS (FIXED)
 --========================
 
