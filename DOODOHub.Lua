@@ -340,7 +340,7 @@ local TPPage =
 Instance.new("Frame")
 
 TPPage.Size =
-UDim2.new(0,280,0,180)
+UDim2.new(0,280,0,230)
 
 TPPage.Position =
 UDim2.new(0,115,0,45)
@@ -711,6 +711,115 @@ TeleportButton.MouseButton1Click:Connect(function()
 		infoOpen =
 		false
 	end
+
+end)
+
+--========================
+-- GET TELEPORT TOOL BUTTON
+--========================
+
+local ToolButton =
+Instance.new("TextButton")
+
+ToolButton.Parent =
+TPPage
+
+ToolButton.Size =
+UDim2.new(0,120,0,30)
+
+ToolButton.Position =
+UDim2.new(0,140,0,170) -- ниже Teleport
+
+ToolButton.Text =
+"Teleport Tool"
+
+ToolButton.Font =
+Enum.Font.GothamBold -- как DOODO HUB
+
+ToolButton.TextSize =
+14
+
+ToolButton.TextColor3 =
+Color3.new(1,1,1)
+
+ToolButton.BackgroundColor3 =
+Color3.fromRGB(25,25,25)
+
+ToolButton.BorderSizePixel =
+0
+
+ToolButton.AutoButtonColor =
+false
+
+
+local toolCorner =
+Instance.new("UICorner")
+
+toolCorner.CornerRadius =
+UDim.new(0,8)
+
+toolCorner.Parent =
+ToolButton
+
+
+-- ОБВОДКА как ExecutorFrame
+
+local toolStroke =
+Instance.new("UIStroke")
+
+toolStroke.Color =
+Color3.fromRGB(
+0,140,255
+)
+
+toolStroke.Thickness =
+1
+
+toolStroke.Transparency =
+0.3
+
+toolStroke.Parent =
+ToolButton
+
+
+ToolButton.MouseButton1Click:Connect(function()
+
+	local tool =
+	Instance.new("Tool")
+
+	tool.Name =
+	"Teleport Tool"
+
+	tool.RequiresHandle =
+	false
+
+	tool.CanBeDropped =
+	false
+
+
+	tool.Activated:Connect(function()
+
+		local mouse =
+		player:GetMouse()
+
+		local pos =
+		mouse.Hit.Position
+
+		if player.Character then
+
+			player.Character:
+			PivotTo(
+				CFrame.new(
+					pos + Vector3.new(0,3,0)
+				)
+			)
+
+		end
+
+	end)
+
+	tool.Parent =
+	player.Backpack
 
 end)
 
