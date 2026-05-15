@@ -337,13 +337,22 @@ TeleportButton.ZIndex =
 -- PAGE
 
 local TPPage =
-Instance.new("Frame")
+Instance.new("ScrollingFrame")
 
 TPPage.Size =
-UDim2.new(0,280,0,230)
+UDim2.new(0,280,0,180) -- обратно меньше
 
 TPPage.Position =
 UDim2.new(0,115,0,45)
+
+TPPage.CanvasSize =
+UDim2.new(0,0,0,260) -- область прокрутки
+
+TPPage.ScrollBarThickness =
+4
+
+TPPage.AutomaticCanvasSize =
+Enum.AutomaticSize.Y
 
 TPPage.Visible =
 false
@@ -354,17 +363,40 @@ Color3.fromRGB(0,140,255)
 TPPage.BackgroundTransparency =
 0.88
 
+TPPage.BorderSizePixel =
+0
+
 TPPage.Parent =
 MainFrame
 
-TPPage.ZIndex = 4
+TPPage.ZIndex =
+4
 
-Instance.new(
-"UICorner",
-TPPage
-).CornerRadius =
+
+local tpCorner =
+Instance.new("UICorner")
+
+tpCorner.CornerRadius =
 UDim.new(0,10)
 
+tpCorner.Parent =
+TPPage
+
+
+local tpPageStroke =
+Instance.new("UIStroke")
+
+tpPageStroke.Color =
+Color3.fromRGB(0,140,255)
+
+tpPageStroke.Thickness =
+1
+
+tpPageStroke.Transparency =
+0.3
+
+tpPageStroke.Parent =
+TPPage
 
 
 -- LIST
@@ -378,7 +410,7 @@ PlayerList.Parent =
 TPPage
 
 PlayerList.Size =
-UDim2.new(0,120,1,-10)
+UDim2.new(0,120,0,160)
 
 PlayerList.Position =
 UDim2.new(0,5,0,5)
@@ -728,7 +760,7 @@ ToolButton.Size =
 UDim2.new(0,120,0,30)
 
 ToolButton.Position =
-UDim2.new(0,140,0,170) -- ниже Teleport
+UDim2.new(0,140,0,200) -- ниже Teleport
 
 ToolButton.Text =
 "Teleport Tool"
