@@ -460,9 +460,7 @@ Color3.new(1,1,1)
 
 
 local TPButton =
-Instance.new(
-"TextButton"
-)
+Instance.new("TextButton")
 
 TPButton.Parent =
 TPPage
@@ -479,18 +477,20 @@ TPButton.Text =
 TPButton.Font =
 Enum.Font.GothamBold
 
-TPButton.BackgroundColor3 =
-Color3.fromRGB(
-20,20,20
-)
-
-TPButton.BackgroundTransparency =
-0
+TPButton.TextSize =
+14
 
 TPButton.TextColor3 =
 Color3.new(1,1,1)
 
-TPButton.TextStrokeTransparency = 1 -- убрать обводку текста
+TPButton.TextStrokeTransparency =
+1 -- УБИРАЕТ ОБВОДКУ ТЕКСТА
+
+TPButton.BackgroundColor3 =
+Color3.fromRGB(20,20,20)
+
+TPButton.BackgroundTransparency =
+0
 
 TPButton.BorderSizePixel =
 0
@@ -566,14 +566,13 @@ btn.TextSize =
 13
 
 btn.TextColor3 =
-Color3.new(1,1,1) -- белый текст
+Color3.new(1,1,1)
 
-btn.TextStrokeTransparency = 1 -- убрать обводку текста
+btn.TextStrokeTransparency =
+1
 
 btn.BackgroundColor3 =
-Color3.fromRGB(
-20,20,20
-)
+Color3.fromRGB(20,20,20)
 
 btn.BackgroundTransparency =
 0.1
