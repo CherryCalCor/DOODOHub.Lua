@@ -313,49 +313,33 @@ local TeleportButton =
 Instance.new("TextButton")
 
 TeleportButton.Size =
-UDim2.new(0,60,0,20)
+UDim2.new(0,70,0,24)
 
 TeleportButton.Position =
-UDim2.new(0,25,0,65) -- ниже info
+UDim2.new(0,25,0,65)
+
+TeleportButton.BackgroundColor3 =
+Color3.fromRGB(0,140,255)
 
 TeleportButton.BackgroundTransparency =
-1
+0.85
 
 TeleportButton.Text =
 "Teleport"
 
 TeleportButton.Font =
-Enum.Font.GothamBold
+Enum.Font.GothamBold -- как DOODO HUB
 
 TeleportButton.TextSize =
 14
 
 TeleportButton.TextColor3 =
-Color3.fromRGB(220,220,220)
+Color3.new(1,1,1)
+
+TeleportButton.BorderSizePixel =
+0
 
 TeleportButton.Parent =
-MainFrame
-
-
-local TPPage =
-Instance.new("Frame")
-
-TPPage.Size =
-UDim2.new(0,280,0,180)
-
-TPPage.Position =
-UDim2.new(0,115,0,45)
-
-TPPage.BackgroundColor3 =
-Color3.fromRGB(0,140,255)
-
-TPPage.BackgroundTransparency =
-0.88
-
-TPPage.Visible =
-false
-
-TPPage.Parent =
 MainFrame
 
 
@@ -363,10 +347,10 @@ local TPCorner =
 Instance.new("UICorner")
 
 TPCorner.CornerRadius =
-UDim.new(0,10)
+UDim.new(0,8)
 
 TPCorner.Parent =
-TPPage
+TeleportButton
 
 
 local TPStroke =
@@ -375,8 +359,11 @@ Instance.new("UIStroke")
 TPStroke.Color =
 Color3.fromRGB(0,140,255)
 
+TPStroke.Transparency =
+0.4
+
 TPStroke.Parent =
-TPPage
+TeleportButton
 
 
 
@@ -386,16 +373,25 @@ local PlayerList =
 Instance.new("ScrollingFrame")
 
 PlayerList.Size =
-UDim2.new(0,110,1,-10)
+UDim2.new(0,115,1,-10)
 
 PlayerList.Position =
 UDim2.new(0,5,0,5)
 
-PlayerList.CanvasSize =
-UDim2.new()
-
 PlayerList.BackgroundTransparency =
 1
+
+PlayerList.BorderSizePixel =
+0
+
+PlayerList.ScrollBarThickness =
+4
+
+PlayerList.CanvasSize =
+UDim2.new(0,0,0,0)
+
+PlayerList.AutomaticCanvasSize =
+Enum.AutomaticSize.Y
 
 PlayerList.Parent =
 TPPage
@@ -403,6 +399,9 @@ TPPage
 
 local layout =
 Instance.new("UIListLayout")
+
+layout.Padding =
+UDim.new(0,4)
 
 layout.Parent =
 PlayerList
@@ -479,21 +478,81 @@ Players:GetPlayers()
 ) do
 
 	local btn =
-	Instance.new(
-	"TextButton"
-	)
+	Instance.new("TextButton")
 
 	btn.Size =
-	UDim2.new(1,0,0,25)
+	UDim2.new(1,-5,0,28)
+
+	btn.BackgroundColor3 =
+	Color3.fromRGB(0,140,255)
+
+	btn.BackgroundTransparency =
+	0.85
+
+	btn.BorderSizePixel =
+	0
 
 	btn.Text =
 	plr.Name
 
+	btn.TextColor3 =
+	Color3.new(1,1,1)
+
 	btn.Font =
 	Enum.Font.GothamBold
 
+	btn.TextSize =
+	13
+
 	btn.Parent =
 	PlayerList
+
+
+	local corner =
+	Instance.new("UICorner")
+
+	corner.CornerRadius =
+	UDim.new(0,7)
+
+	corner.Parent =
+	btn
+
+
+	local stroke =
+	Instance.new("UIStroke")
+
+	stroke.Color =
+	Color3.fromRGB(0,140,255)
+
+	stroke.Transparency =
+	0.4
+
+	stroke.Parent =
+	btn
+
+
+	btn.MouseButton1Click:Connect(function()
+
+		selectedPlayer =
+		plr
+
+		SelectedName.Text =
+		plr.Name
+
+
+		local img =
+		Players:GetUserThumbnailAsync(
+			plr.UserId,
+			Enum.ThumbnailType.HeadShot,
+			Enum.ThumbnailSize.Size100x100
+		)
+
+		SelectedAvatar.Image =
+		img
+
+	end)
+
+end
 
 
 	btn.MouseButton1Click:Connect(function()
